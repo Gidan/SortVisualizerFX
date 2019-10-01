@@ -6,11 +6,12 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.aamatucci.sortvisualizerfx.MainController"
+            fx:id="root"
 >
 
     <center>
-        <StackPane>
-            <HBox fx:id="listContainer"/>
+        <StackPane style="-fx-background-color: red" prefWidth="${root.width}" minWidth="${root.width}" maxWidth="${root.width}">
+            <HBox alignment="TOP_CENTER" fillHeight="false" style="-fx-background-color: green" fx:id="listContainer" spacing="5.0"/>
         </StackPane>
     </center>
 
