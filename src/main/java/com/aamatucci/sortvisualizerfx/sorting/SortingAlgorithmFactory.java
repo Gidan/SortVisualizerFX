@@ -5,8 +5,11 @@ public class SortingAlgorithmFactory {
     public static SortAlgorithm getAlgorithm(Algorithm algorithm){
         SortAlgorithm sortAlgorithm = null;
         switch (algorithm){
-            case QUICKSORT:
+            case quickSort:
                 sortAlgorithm = new QuickSort();
+                break;
+            case bubbleSort:
+                sortAlgorithm = new BubbleSort();
                 break;
         }
 

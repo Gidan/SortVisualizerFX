@@ -25,9 +25,7 @@ public class MainController {
         viewModel.getList().addListener((ListChangeListener<Integer>) change -> {
             while (change.next()) {
                 if (change.wasReplaced()) {
-                   Platform.runLater(() -> {
-                       ((Rectangle) listContainer.getChildren().get(change.getFrom())).setHeight(viewModel.getList().get(change.getFrom()));
-                   });
+                   Platform.runLater(() -> ((Rectangle) listContainer.getChildren().get(change.getFrom())).setHeight(viewModel.getList().get(change.getFrom())));
                 } else if (change.wasAdded()) {
                     List<? extends Integer> addedSubList = change.getAddedSubList();
                     addedSubList.forEach(i -> {
@@ -62,6 +60,8 @@ public class MainController {
         });
     }
 
-
+    public void close(){
+        viewModel.cancelSort();
+    }
 
 }

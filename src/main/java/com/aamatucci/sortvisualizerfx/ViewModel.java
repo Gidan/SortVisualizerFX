@@ -12,6 +12,7 @@ import java.util.Random;
 public class ViewModel {
 
     private ObservableList<Integer> list = FXCollections.observableArrayList();
+    private SortAlgorithm algorithm;
 
     public void resetList(){
         list.clear();
@@ -26,7 +27,11 @@ public class ViewModel {
     }
 
     public void startSort(SortCallback sortCallback){
-        SortAlgorithm algorithm = SortingAlgorithmFactory.getAlgorithm(Algorithm.QUICKSORT);
+        algorithm = SortingAlgorithmFactory.getAlgorithm(Algorithm.bubbleSort);
         algorithm.sort(list, sortCallback);
+    }
+
+    public void cancelSort(){
+        algorithm.cancel();
     }
 }

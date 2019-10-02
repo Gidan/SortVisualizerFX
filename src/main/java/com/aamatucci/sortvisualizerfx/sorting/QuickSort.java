@@ -11,20 +11,20 @@ class QuickSort extends SortAlgorithm {
         int i = low, j = high;
         int pivot = list.get(low + (high-low) / 2);
 
-        while (i <= j) {
-            while (list.get(i) < pivot) {
+        while (i <= j && run) {
+            while (list.get(i) < pivot && run) {
                 i++;
                 this.callback.cursors(i, j);
                 sleep();
             }
 
-            while (list.get(j) > pivot) {
+            while (list.get(j) > pivot && run) {
                 j--;
                 this.callback.cursors(i, j);
                 sleep();
             }
 
-            if (i <= j) {
+            if (i <= j && run) {
                 exchange(i, j);
                 sleep();
                 i++;
@@ -32,22 +32,18 @@ class QuickSort extends SortAlgorithm {
             }
         }
 
-        if (low < j)
+        if (low < j && run)
         {
             quicksort(low, j);
         }
 
-        if (i < high)
+        if (i < high && run)
         {
             quicksort(i, high);
         }
     }
 
-    private void exchange(int i, int j) {
-        int temp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, temp);
-    }
+
 
 
 
