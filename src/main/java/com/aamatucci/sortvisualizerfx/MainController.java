@@ -29,6 +29,9 @@ public class MainController {
     @FXML
     public Label lblStatus;
 
+    @FXML
+    public Button btnStop;
+
     private ViewModel viewModel;
 
     @FXML
@@ -51,7 +54,9 @@ public class MainController {
             }
         });
 
-        btnSort.disableProperty().bind(viewModel.algorithmProperty().isNull());
+        btnSort.disableProperty().bind(viewModel.sortRunningProperty());
+        btnStop.disableProperty().bind(viewModel.sortRunningProperty().not());
+
         cmbAlgorithm.setItems(viewModel.getAlgorithms());
         cmbAlgorithm.getSelectionModel().select(0);
         viewModel.selectedAlgorithmProperty().bind(cmbAlgorithm.valueProperty());
@@ -60,7 +65,7 @@ public class MainController {
             viewModel.startSort(new SortCallback() {
                 @Override
                 public void onStart() {
-                    lblStatus.setText("sorting...");
+                    Platform.runLater(() -> lblStatus.setText("sorting..."));
                 }
 
                 @Override
@@ -85,6 +90,10 @@ public class MainController {
 
                 }
             });
+        });
+
+        btnStop.setOnMouseClicked(event -> {
+            viewModel.cancelSort();
         });
 
     }

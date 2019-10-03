@@ -4,12 +4,12 @@ class BubbleSort extends SortAlgorithm {
 
     @Override
     protected void sort() throws InterruptedException {
-        for (int i = list.size() - 1; i > 1 && run; i--) {
+        for (int i = list.size() - 1; i > 1 && shouldRun(); i--) {
             this.callback.cursors(i);
-            sleep();
-            for (int j = 0; j < i && run; j++) {
+            pause();
+            for (int j = 0; j < i && shouldRun(); j++) {
                 this.callback.cursors(i,j);
-                sleep();
+                pause();
                 if (list.get(j) > list.get(j + 1)) {
                     this.callback.cursors(j,j+1);
                     exchange(j, j + 1);

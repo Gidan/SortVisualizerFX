@@ -3,37 +3,24 @@ package com.aamatucci.sortvisualizerfx.sorting;
 import com.aamatucci.sortvisualizerfx.Constants;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class SortAlgorithm {
 
     protected List<Integer> list;
     protected SortCallback callback;
-    private Thread sortThread;
-    protected boolean run = true;
 
-    public void sort(List<Integer> list, SortCallback callback) {
+    private AtomicBoolean run = new AtomicBoolean(false);
+
+    public void sort(List<Integer> list, SortCallback callback) throws InterruptedException {
         this.list = list;
         this.callback = callback;
-        run = true;
-        this.callback.onStart();
-        sortThread = new Thread(() -> {
-            try {
-                sort();
-            } catch (InterruptedException e){
-
-            }
-            this.callback.onFinished();
-        });
-        sortThread.start();
+        run.set(true);
+        sort();
     }
 
-    protected void sleep() throws InterruptedException {
+    protected void pause() throws InterruptedException {
         Thread.sleep(Constants.SLEEP);
-//        try {
-//            Thread.sleep(Constants.SLEEP);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     protected void exchange(int i, int j) {
@@ -42,11 +29,12 @@ public abstract class SortAlgorithm {
         list.set(j, temp);
     }
 
+    protected boolean shouldRun(){
+        return run.get();
+    }
+
     public void cancel() {
-        run = false;
-        if (sortThread != null) {
-            sortThread.interrupt();
-        }
+        run.set(false);
     }
 
     protected abstract void sort() throws InterruptedException;

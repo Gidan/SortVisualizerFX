@@ -22,7 +22,9 @@
 
             </HBox>
 
-            <Button fx:id="btnSort" text="sort" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"
+            <Button fx:id="btnSort" text="sort" AnchorPane.rightAnchor="60" AnchorPane.topAnchor="10"
+                    AnchorPane.bottomAnchor="10"/>
+            <Button fx:id="btnStop" text="stop" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"
                     AnchorPane.bottomAnchor="10"/>
         </AnchorPane>
     </top>
