@@ -3,11 +3,11 @@ package com.aamatucci.sortvisualizerfx.sorting;
 class QuickSort extends SortAlgorithm {
 
     @Override
-    protected void sort() {
+    protected void sort() throws InterruptedException {
         quicksort(0, list.size() - 1);
     }
 
-    private void quicksort(int low, int high) {
+    private void quicksort(int low, int high) throws InterruptedException {
         int i = low, j = high;
         int pivot = list.get(low + (high-low) / 2);
 

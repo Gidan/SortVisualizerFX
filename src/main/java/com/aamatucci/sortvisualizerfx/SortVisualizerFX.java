@@ -1,12 +1,10 @@
 package com.aamatucci.sortvisualizerfx;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class SortVisualizerFX extends Application {
 
@@ -19,16 +17,12 @@ public class SortVisualizerFX extends Application {
         Parent root = fxmlLoader.load();
         MainController controller = fxmlLoader.getController();
 
-        stage.setScene(new Scene(root, 500, 500));
-        stage.setTitle("SortVisualizerFX");
+        stage.setScene(new Scene(root, Constants.DEFAULT_WINDOW_WIDTH, Constants.DEFAULT_WINDOW_HEIGHT));
+        stage.setMinHeight(Constants.DEFAULT_WINDOW_HEIGHT);
+        stage.setMinWidth(Constants.DEFAULT_WINDOW_WIDTH);
+        stage.setTitle(SortVisualizerFX.class.getSimpleName());
         stage.show();
 
-
         stage.setOnCloseRequest(event -> controller.close());
-
-
-
-
-
     }
 }

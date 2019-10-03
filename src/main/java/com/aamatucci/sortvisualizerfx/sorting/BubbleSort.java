@@ -3,7 +3,7 @@ package com.aamatucci.sortvisualizerfx.sorting;
 class BubbleSort extends SortAlgorithm {
 
     @Override
-    protected void sort() {
+    protected void sort() throws InterruptedException {
         for (int i = list.size() - 1; i > 1 && run; i--) {
             this.callback.cursors(i);
             sleep();

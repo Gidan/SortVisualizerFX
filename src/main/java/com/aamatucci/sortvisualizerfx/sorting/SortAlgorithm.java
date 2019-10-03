@@ -1,5 +1,7 @@
 package com.aamatucci.sortvisualizerfx.sorting;
 
+import com.aamatucci.sortvisualizerfx.Constants;
+
 import java.util.List;
 
 public abstract class SortAlgorithm {
@@ -15,18 +17,23 @@ public abstract class SortAlgorithm {
         run = true;
         this.callback.onStart();
         sortThread = new Thread(() -> {
-            sort();
+            try {
+                sort();
+            } catch (InterruptedException e){
+
+            }
             this.callback.onFinished();
         });
         sortThread.start();
     }
 
-    protected void sleep() {
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    protected void sleep() throws InterruptedException {
+        Thread.sleep(Constants.SLEEP);
+//        try {
+//            Thread.sleep(Constants.SLEEP);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     protected void exchange(int i, int j) {
@@ -35,11 +42,13 @@ public abstract class SortAlgorithm {
         list.set(j, temp);
     }
 
-    public void cancel(){
+    public void cancel() {
         run = false;
-        sortThread.interrupt();
+        if (sortThread != null) {
+            sortThread.interrupt();
+        }
     }
 
-    protected abstract void sort();
+    protected abstract void sort() throws InterruptedException;
 
 }
