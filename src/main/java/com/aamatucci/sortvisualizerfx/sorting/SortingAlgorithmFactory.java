@@ -14,6 +14,9 @@ public class SortingAlgorithmFactory {
             case mergeSort:
                 sortAlgorithm = new MergeSort();
                 break;
+            case heapSort:
+                sortAlgorithm = new HeapSort();
+                break;
         }
 
         return sortAlgorithm;

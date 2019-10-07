@@ -5,7 +5,8 @@ import java.util.List;
 public enum Algorithm {
         quickSort,
         bubbleSort,
-        mergeSort
+        mergeSort,
+        heapSort
 
 
 }
