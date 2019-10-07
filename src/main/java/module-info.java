@@ -4,5 +4,6 @@ module SortVisualizerFX {
     requires javafx.fxml;
 
     exports com.aamatucci.sortvisualizerfx;
+    exports com.aamatucci.sortvisualizerfx.sorting;
     opens com.aamatucci.sortvisualizerfx to javafx.fxml;
 }
