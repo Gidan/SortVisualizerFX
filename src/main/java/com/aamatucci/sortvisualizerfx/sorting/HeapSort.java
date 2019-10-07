@@ -5,20 +5,20 @@ import java.util.List;
 public class HeapSort extends SortAlgorithm {
     @Override
     protected void sort() throws InterruptedException {
-        int size = list.size();
+        int size = this.list.size();
 
         for (int i = size / 2 - 1; i >= 0; i--) {
-            this.createHeap(list, size, i);
+            this.createHeap(this.list, size, i);
         }
 
         // One by one extract an element from heap
         for (int i = size - 1; i >= 0; i--) {
             // Move current root to end
-            callback.cursors(0, i);
-            exchange(0, i);
-            pause();
+            this.callback.cursors(0, i);
+            this.exchange(0, i);
+            this.pause();
 
-            this.createHeap(list, i, 0);
+            this.createHeap(this.list, i, 0);
         }
     }
 
@@ -39,11 +39,11 @@ public class HeapSort extends SortAlgorithm {
 
         // If largest is not root
         if (largest != root) {
-            callback.cursors(root, largest);
-            exchange(root, largest);
-            pause();
+            this.callback.cursors(root, largest);
+            this.exchange(root, largest);
+            this.pause();
 
-            createHeap(list, size, largest);
+            this.createHeap(list, size, largest);
         }
     }
 }

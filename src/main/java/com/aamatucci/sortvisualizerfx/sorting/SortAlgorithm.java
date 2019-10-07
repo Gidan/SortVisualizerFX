@@ -15,8 +15,8 @@ public abstract class SortAlgorithm {
     public void sort(List<Integer> list, SortCallback callback) throws InterruptedException {
         this.list = list;
         this.callback = callback;
-        run.set(true);
-        sort();
+        this.run.set(true);
+        this.sort();
     }
 
     protected void pause() throws InterruptedException {
@@ -24,17 +24,17 @@ public abstract class SortAlgorithm {
     }
 
     protected void exchange(int i, int j) {
-        int temp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, temp);
+        int temp = this.list.get(i);
+        this.list.set(i, this.list.get(j));
+        this.list.set(j, temp);
     }
 
     protected boolean shouldRun(){
-        return run.get();
+        return this.run.get();
     }
 
     public void cancel() {
-        run.set(false);
+        this.run.set(false);
     }
 
     protected abstract void sort() throws InterruptedException;

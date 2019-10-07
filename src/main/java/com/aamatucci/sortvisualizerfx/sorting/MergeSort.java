@@ -6,7 +6,7 @@ public class MergeSort extends SortAlgorithm {
 
     @Override
     protected void sort() throws InterruptedException {
-        mergeSort(this.list, 0, list.size() - 1);
+        this.mergeSort(this.list, 0, this.list.size() - 1);
     }
 
     private void merge(List<Integer> arr, int startL, int mid, int end) throws InterruptedException {
@@ -19,20 +19,20 @@ public class MergeSort extends SortAlgorithm {
         while (startL <= mid && startR <= end) {
             if (arr.get(startL) <= arr.get(startR)) {
                 startL++;
-                pause();
+                this.pause();
             } else {
                 int value = arr.get(startR);
                 int index = startR;
 
                 while (index != startL) {
                     arr.set(index, arr.get(index - 1));
-                    callback.cursors(index);
+                    this.callback.cursors(index);
                     index--;
-                    pause();
+                    this.pause();
                 }
                 arr.set(startL, value);
-                callback.cursors(startL);
-                pause();
+                this.callback.cursors(startL);
+                this.pause();
 
                 startL++;
                 mid++;
@@ -45,10 +45,10 @@ public class MergeSort extends SortAlgorithm {
         if (left < right) {
             int mid = left + (right - left) / 2;
 
-            mergeSort(arr, left, mid);
-            mergeSort(arr, mid + 1, right);
+            this.mergeSort(arr, left, mid);
+            this.mergeSort(arr, mid + 1, right);
 
-            merge(arr, left, mid, right);
+            this.merge(arr, left, mid, right);
         }
     }
 

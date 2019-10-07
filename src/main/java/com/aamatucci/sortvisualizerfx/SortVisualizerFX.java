@@ -13,7 +13,7 @@ public class SortVisualizerFX extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/Main.fxml"));
         Parent root = fxmlLoader.load();
         MainController controller = fxmlLoader.getController();
 

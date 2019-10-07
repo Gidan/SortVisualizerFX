@@ -36,55 +36,55 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        viewModel = new ViewModel();
+        this.viewModel = new ViewModel();
 
-        viewModel.getList().addListener((ListChangeListener<Integer>) change -> {
+        this.viewModel.getList().addListener((ListChangeListener<Integer>) change -> {
             while (change.next()) {
                 if (change.wasReplaced()) {
-                   Platform.runLater(() -> ((Rectangle) listContainer.getChildren().get(change.getFrom())).setHeight(viewModel.getList().get(change.getFrom())));
+                   Platform.runLater(() -> ((Rectangle) this.listContainer.getChildren().get(change.getFrom())).setHeight(this.viewModel.getList().get(change.getFrom())));
                 } else if (change.wasAdded()) {
                     List<? extends Integer> addedSubList = change.getAddedSubList();
                     addedSubList.forEach(i -> {
                         Rectangle r = new Rectangle(10, i, Color.BLUE);
-                        listContainer.getChildren().add(r);
+                        this.listContainer.getChildren().add(r);
                     });
                 } else if (change.wasRemoved()){
-                    listContainer.getChildren().remove(change.getFrom(), change.getRemovedSize());
+                    this.listContainer.getChildren().remove(change.getFrom(), change.getRemovedSize());
                 }
             }
         });
 
-        btnSort.disableProperty().bind(viewModel.sortRunningProperty());
-        btnStop.disableProperty().bind(viewModel.sortRunningProperty().not());
+        this.btnSort.disableProperty().bind(this.viewModel.sortRunningProperty());
+        this.btnStop.disableProperty().bind(this.viewModel.sortRunningProperty().not());
 
-        cmbAlgorithm.setItems(viewModel.getAlgorithms());
-        cmbAlgorithm.getSelectionModel().select(0);
-        viewModel.selectedAlgorithmProperty().bind(cmbAlgorithm.valueProperty());
+        this.cmbAlgorithm.setItems(this.viewModel.getAlgorithms());
+        this.cmbAlgorithm.getSelectionModel().select(0);
+        this.viewModel.selectedAlgorithmProperty().bind(this.cmbAlgorithm.valueProperty());
 
-        btnSort.setOnMouseClicked(event -> {
-            viewModel.startSort(new SortCallback() {
+        this.btnSort.setOnMouseClicked(event -> {
+            this.viewModel.startSort(new SortCallback() {
                 @Override
                 public void onStart() {
-                    Platform.runLater(() -> lblStatus.setText("sorting..."));
+                    Platform.runLater(() -> MainController.this.lblStatus.setText("sorting..."));
                 }
 
                 @Override
                 public void onInterrupted() {
-                    Platform.runLater(() -> lblStatus.setText("interrupted"));
+                    Platform.runLater(() -> MainController.this.lblStatus.setText("interrupted"));
                 }
 
                 @Override
                 public void onFinished() {
-                    listContainer.getChildren().stream().map(node -> (Rectangle)node).forEach(rectangle -> {
+                    MainController.this.listContainer.getChildren().stream().map(node -> (Rectangle)node).forEach(rectangle -> {
                         rectangle.setFill(Color.BLUE);
                     });
-                    Platform.runLater(() -> lblStatus.setText("done"));
+                    Platform.runLater(() -> MainController.this.lblStatus.setText("done"));
                 }
 
                 @Override
                 public void cursors(int... cursors) {
-                    Platform.runLater(() -> listContainer.getChildren().stream().map(node -> (Rectangle)node).forEach(rectangle -> {
-                        boolean highlighted = Arrays.stream(cursors).anyMatch(c -> c == listContainer.getChildren().indexOf(rectangle));
+                    Platform.runLater(() -> MainController.this.listContainer.getChildren().stream().map(node -> (Rectangle)node).forEach(rectangle -> {
+                        boolean highlighted = Arrays.stream(cursors).anyMatch(c -> c == MainController.this.listContainer.getChildren().indexOf(rectangle));
                         rectangle.setFill(highlighted ? Color.RED : Color.BLUE);
                     }));
 
@@ -92,14 +92,14 @@ public class MainController {
             });
         });
 
-        btnStop.setOnMouseClicked(event -> {
-            viewModel.cancelSort();
+        this.btnStop.setOnMouseClicked(event -> {
+            this.viewModel.cancelSort();
         });
 
     }
 
-    public void close(){
-        viewModel.cancelSort();
+    void close(){
+        this.viewModel.cancelSort();
     }
 
 }

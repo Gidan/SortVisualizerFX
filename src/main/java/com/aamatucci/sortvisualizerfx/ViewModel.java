@@ -26,62 +26,62 @@ public class ViewModel {
     private SortCallback sortCallback;
 
     public ViewModel(){
-        selectedAlgorithm.addListener((observable, oldValue, a) -> {
-            algorithm.set(SortingAlgorithmFactory.getAlgorithm(a));
-            resetList();
+        this.selectedAlgorithm.addListener((observable, oldValue, a) -> {
+            this.algorithm.set(SortingAlgorithmFactory.getAlgorithm(a));
+            this.resetList();
         });
     }
 
     private void resetList(){
-        list.clear();
+        this.list.clear();
         for (int i = 0; i<Constants.ELEMENTS_COUNT; i++){
-            list.add(new Random().nextInt(Constants.MAX));
+            this.list.add(new Random().nextInt(Constants.MAX));
         }
     }
 
     ObservableList<Integer> getList() {
-        return list;
+        return this.list;
     }
 
     ObjectProperty<SortAlgorithm> algorithmProperty() {
-        return algorithm;
+        return this.algorithm;
     }
 
     void startSort(SortCallback sortCallback){
         this.sortCallback = sortCallback;
-        sortThread = new Thread(() -> {
+        this.sortThread = new Thread(() -> {
             try {
                 this.sortCallback.onStart();
-                algorithm.get().sort(list, sortCallback);
+                this.algorithm.get().sort(this.list, sortCallback);
                 this.sortCallback.onFinished();
             } catch (InterruptedException e) {
                 this.sortCallback.onInterrupted();
             }
             finally {
-                Platform.runLater(()-> sortRunning.setValue(false));
+                Platform.runLater(()-> this.sortRunning.setValue(false));
             }
         });
-        sortRunning.setValue(true);
+        this.sortRunning.setValue(true);
         this.sortThread.start();
     }
 
     void cancelSort(){
-       algorithm.get().cancel();
+        this.algorithm.get().cancel();
     }
 
     ObservableList<Algorithm> getAlgorithms() {
-        return algorithms;
+        return this.algorithms;
     }
 
     ObjectProperty<Algorithm> selectedAlgorithmProperty() {
-        return selectedAlgorithm;
+        return this.selectedAlgorithm;
     }
 
     public boolean isSortRunning() {
-        return sortRunning.get();
+        return this.sortRunning.get();
     }
 
-    public BooleanProperty sortRunningProperty() {
-        return sortRunning;
+    BooleanProperty sortRunningProperty() {
+        return this.sortRunning;
     }
 }
