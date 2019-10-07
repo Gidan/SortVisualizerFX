@@ -1,4 +1,4 @@
-#SortVisualizerFX
+# SortVisualizerFX
 Sorting algorithms visualization application written in JavaFX.
 
 ![](screenshots/1.png)
