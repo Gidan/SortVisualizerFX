@@ -8,6 +8,10 @@
     <artifactId>SortVisualizerFX</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -17,6 +21,14 @@
                 <configuration>
                     <source>13</source>
                     <target>13</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.3</version>
+                <configuration>
+                    <mainClass>com.aamatucci.sortvisualizerfx.SortVisualizerFX</mainClass>
                 </configuration>
             </plugin>
         </plugins>

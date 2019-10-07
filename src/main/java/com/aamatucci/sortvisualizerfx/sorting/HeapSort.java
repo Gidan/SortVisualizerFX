@@ -17,7 +17,7 @@ public class HeapSort extends SortAlgorithm {
             callback.cursors(0, i);
             exchange(0, i);
             pause();
-            
+
             this.createHeap(list, i, 0);
         }
     }
