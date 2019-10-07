@@ -4,7 +4,8 @@ import java.util.List;
 
 public enum Algorithm {
         quickSort,
-        bubbleSort
+        bubbleSort,
+        mergeSort
 
 
 }

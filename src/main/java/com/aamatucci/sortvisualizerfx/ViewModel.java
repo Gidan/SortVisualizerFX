@@ -30,8 +30,6 @@ public class ViewModel {
             algorithm.set(SortingAlgorithmFactory.getAlgorithm(a));
             resetList();
         });
-
-
     }
 
     private void resetList(){

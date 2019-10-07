@@ -11,6 +11,9 @@ public class SortingAlgorithmFactory {
             case bubbleSort:
                 sortAlgorithm = new BubbleSort();
                 break;
+            case mergeSort:
+                sortAlgorithm = new MergeSort();
+                break;
         }
 
         return sortAlgorithm;
