@@ -43,10 +43,6 @@ public class ViewModel {
         return this.list;
     }
 
-    ObjectProperty<SortAlgorithm> algorithmProperty() {
-        return this.algorithm;
-    }
-
     void startSort(SortCallback sortCallback){
         this.sortCallback = sortCallback;
         this.sortThread = new Thread(() -> {
@@ -75,10 +71,6 @@ public class ViewModel {
 
     ObjectProperty<Algorithm> selectedAlgorithmProperty() {
         return this.selectedAlgorithm;
-    }
-
-    public boolean isSortRunning() {
-        return this.sortRunning.get();
     }
 
     BooleanProperty sortRunningProperty() {

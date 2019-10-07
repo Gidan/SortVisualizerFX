@@ -41,14 +41,14 @@ public class MainController {
         this.viewModel.getList().addListener((ListChangeListener<Integer>) change -> {
             while (change.next()) {
                 if (change.wasReplaced()) {
-                   Platform.runLater(() -> ((Rectangle) this.listContainer.getChildren().get(change.getFrom())).setHeight(this.viewModel.getList().get(change.getFrom())));
+                    Platform.runLater(() -> ((Rectangle) this.listContainer.getChildren().get(change.getFrom())).setHeight(this.viewModel.getList().get(change.getFrom())));
                 } else if (change.wasAdded()) {
                     List<? extends Integer> addedSubList = change.getAddedSubList();
                     addedSubList.forEach(i -> {
                         Rectangle r = new Rectangle(10, i, Color.BLUE);
                         this.listContainer.getChildren().add(r);
                     });
-                } else if (change.wasRemoved()){
+                } else if (change.wasRemoved()) {
                     this.listContainer.getChildren().remove(change.getFrom(), change.getRemovedSize());
                 }
             }
@@ -61,44 +61,39 @@ public class MainController {
         this.cmbAlgorithm.getSelectionModel().select(0);
         this.viewModel.selectedAlgorithmProperty().bind(this.cmbAlgorithm.valueProperty());
 
-        this.btnSort.setOnMouseClicked(event -> {
-            this.viewModel.startSort(new SortCallback() {
-                @Override
-                public void onStart() {
-                    Platform.runLater(() -> MainController.this.lblStatus.setText("sorting..."));
-                }
+        this.btnSort.setOnMouseClicked(event ->
+                this.viewModel.startSort(new SortCallback() {
+                    @Override
+                    public void onStart() {
+                        Platform.runLater(() -> MainController.this.lblStatus.setText("sorting..."));
+                    }
 
-                @Override
-                public void onInterrupted() {
-                    Platform.runLater(() -> MainController.this.lblStatus.setText("interrupted"));
-                }
+                    @Override
+                    public void onInterrupted() {
+                        Platform.runLater(() -> MainController.this.lblStatus.setText("interrupted"));
+                    }
 
-                @Override
-                public void onFinished() {
-                    MainController.this.listContainer.getChildren().stream().map(node -> (Rectangle)node).forEach(rectangle -> {
-                        rectangle.setFill(Color.BLUE);
-                    });
-                    Platform.runLater(() -> MainController.this.lblStatus.setText("done"));
-                }
+                    @Override
+                    public void onFinished() {
+                        MainController.this.listContainer.getChildren().stream().map(node -> (Rectangle) node).forEach(rectangle -> rectangle.setFill(Color.BLUE));
+                        Platform.runLater(() -> MainController.this.lblStatus.setText("done"));
+                    }
 
-                @Override
-                public void cursors(int... cursors) {
-                    Platform.runLater(() -> MainController.this.listContainer.getChildren().stream().map(node -> (Rectangle)node).forEach(rectangle -> {
-                        boolean highlighted = Arrays.stream(cursors).anyMatch(c -> c == MainController.this.listContainer.getChildren().indexOf(rectangle));
-                        rectangle.setFill(highlighted ? Color.RED : Color.BLUE);
-                    }));
+                    @Override
+                    public void cursors(int... cursors) {
+                        Platform.runLater(() -> MainController.this.listContainer.getChildren().stream().map(node -> (Rectangle) node).forEach(rectangle -> {
+                            boolean highlighted = Arrays.stream(cursors).anyMatch(c -> c == MainController.this.listContainer.getChildren().indexOf(rectangle));
+                            rectangle.setFill(highlighted ? Color.RED : Color.BLUE);
+                        }));
 
-                }
-            });
-        });
+                    }
+                }));
 
-        this.btnStop.setOnMouseClicked(event -> {
-            this.viewModel.cancelSort();
-        });
+        this.btnStop.setOnMouseClicked(event -> this.viewModel.cancelSort());
 
     }
 
-    void close(){
+    void close() {
         this.viewModel.cancelSort();
     }
 

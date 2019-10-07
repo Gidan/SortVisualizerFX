@@ -4,42 +4,42 @@ class QuickSort extends SortAlgorithm {
 
     @Override
     protected void sort() throws InterruptedException {
-        quicksort(0, list.size() - 1);
+        this.quicksort(0, this.list.size() - 1);
     }
 
     private void quicksort(int low, int high) throws InterruptedException {
         int i = low, j = high;
-        int pivot = list.get(low + (high-low) / 2);
+        int pivot = this.list.get(low + (high-low) / 2);
 
-        while (i <= j && shouldRun()) {
-            while (list.get(i) < pivot && shouldRun()) {
+        while (i <= j && this.shouldRun()) {
+            while (this.list.get(i) < pivot && this.shouldRun()) {
                 i++;
                 this.callback.cursors(i, j);
-                pause();
+                this.pause();
             }
 
-            while (list.get(j) > pivot && shouldRun()) {
+            while (this.list.get(j) > pivot && this.shouldRun()) {
                 j--;
                 this.callback.cursors(i, j);
-                pause();
+                this.pause();
             }
 
-            if (i <= j && shouldRun()) {
-                exchange(i, j);
-                pause();
+            if (i <= j && this.shouldRun()) {
+                this.exchange(i, j);
+                this.pause();
                 i++;
                 j--;
             }
         }
 
-        if (low < j && shouldRun())
+        if (low < j && this.shouldRun())
         {
-            quicksort(low, j);
+            this.quicksort(low, j);
         }
 
-        if (i < high && shouldRun())
+        if (i < high && this.shouldRun())
         {
-            quicksort(i, high);
+            this.quicksort(i, high);
         }
     }
 
